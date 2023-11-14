@@ -8,9 +8,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import com.innoveworkshop.gametest.assets.DroppingRectangle;
 import com.innoveworkshop.gametest.engine.Circle;
 import com.innoveworkshop.gametest.engine.GameObject;
 import com.innoveworkshop.gametest.engine.GameSurface;
+import com.innoveworkshop.gametest.engine.Rectangle;
+import com.innoveworkshop.gametest.engine.Vector;
 
 public class MainActivity extends AppCompatActivity {
     protected GameSurface gameSurface;
@@ -76,13 +79,20 @@ public class MainActivity extends AppCompatActivity {
 
             circle = new Circle(surface.getWidth() / 2, surface.getHeight() / 2, 100, Color.RED);
             surface.addGameObject(circle);
+
+            surface.addGameObject(new Rectangle(new Vector(surface.getWidth() / 3, surface.getHeight() / 3),
+                    200, 100, Color.GREEN));
+
+            surface.addGameObject(new DroppingRectangle(new Vector(surface.getWidth() / 3, surface.getHeight() / 3),
+                    100, 100, 10, Color.rgb(128, 14, 80)));
         }
 
         @Override
         public void onFixedUpdate() {
             super.onFixedUpdate();
 
-            //circle.setPosition(circle.position.x + 1, circle.position.y + 1);
+            if (!circle.isFloored() && !circle.hitRightWall())
+                circle.setPosition(circle.position.x + 1, circle.position.y + 1);
         }
     }
 }
