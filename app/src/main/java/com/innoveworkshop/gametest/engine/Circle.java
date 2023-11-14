@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class Circle extends GameObject {
+public class Circle extends GameObject implements Caged {
     public float radius;
     public Paint paint;
 
@@ -22,5 +22,20 @@ public class Circle extends GameObject {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawCircle(position.x, position.y, radius, paint);
+    }
+
+    @Override
+    public boolean hitLeftWall() {
+        return (position.x - radius) <= gameSurface.getWidth();
+    }
+
+    @Override
+    public boolean hitRightWall() {
+        return (position.x + radius) >= gameSurface.getWidth();
+    }
+
+    @Override
+    public boolean isFloored() {
+        return (position.y + radius) >= gameSurface.getHeight();
     }
 }

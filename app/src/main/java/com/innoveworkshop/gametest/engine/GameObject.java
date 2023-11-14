@@ -12,6 +12,10 @@ public abstract class GameObject {
         this(0, 0);
     }
 
+    public GameObject(Vector position) {
+        this.position = position;
+    }
+
     public GameObject(float x, float y) {
         position = new Vector(x, y);
     }
