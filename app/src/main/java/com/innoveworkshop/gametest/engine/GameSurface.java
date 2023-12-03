@@ -77,6 +77,10 @@ public class GameSurface extends SurfaceView {
         gameObject.onStart(this);
     }
 
+    public boolean removeGameObject(GameObject gameObject) {
+        return gameObjects.remove(gameObject);
+    }
+
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);

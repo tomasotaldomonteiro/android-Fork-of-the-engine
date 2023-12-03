@@ -91,8 +91,11 @@ public class MainActivity extends AppCompatActivity {
         public void onFixedUpdate() {
             super.onFixedUpdate();
 
-            if (!circle.isFloored() && !circle.hitRightWall())
+            if (!circle.isFloored() && !circle.hitRightWall() && !circle.isDestroyed()) {
                 circle.setPosition(circle.position.x + 1, circle.position.y + 1);
+            } else {
+                circle.destroy();
+            }
         }
     }
 }
