@@ -1,24 +1,24 @@
-package com.innoveworkshop.gametest.engine;
+package com.innoveworkshop.gametest.engine
 
-public interface Caged {
+interface Caged {
     /**
      * Checks if a GameObject has hit the left wall.
      *
      * @return True if it has hit the left wall, otherwise False.
      */
-    public boolean hitLeftWall();
+    fun hitLeftWall(): Boolean
 
     /**
      * Checks if a GameObject has hit the right wall.
      *
      * @return True if it has hit the right wall, otherwise False.
      */
-    public boolean hitRightWall();
+    fun hitRightWall(): Boolean
 
     /**
      * Checks if a GameObject is on the floor.
      *
      * @return True if it's on the floor, otherwise False.
      */
-    public boolean isFloored();
+    val isFloored: Boolean
 }
