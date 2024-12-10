@@ -1,24 +1,23 @@
 package com.innoveworkshop.gametest
 
 import android.graphics.Color
+import android.graphics.PointF
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.innoveworkshop.gametest.assets.DroppingRectangle
+import com.innoveworkshop.gametest.assets.Bin
 import com.innoveworkshop.gametest.engine.Circle
 import com.innoveworkshop.gametest.engine.GameObject
 import com.innoveworkshop.gametest.engine.GameSurface
-import com.innoveworkshop.gametest.engine.Rectangle
+import com.innoveworkshop.gametest.engine.Rigidbody
+
 import com.innoveworkshop.gametest.engine.Vector
 
 class MainActivity : AppCompatActivity() {
     protected var gameSurface: GameSurface? = null
     protected var upButton: Button? = null
-    protected var downButton: Button? = null
-    protected var leftButton: Button? = null
-    protected var rightButton: Button? = null
-
+    var rigidbody: Rigidbody? = null
     protected var game: Game? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,55 +33,54 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupControls() {
         upButton = findViewById<View>(R.id.up_button) as Button
-        upButton!!.setOnClickListener { game!!.circle!!.position.y -= 10f }
+        upButton!!.setOnClickListener { game!!.circle!!.rigidbody.applyForce(PointF(0f, -700f)) }
 
-        downButton = findViewById<View>(R.id.down_button) as Button
-        downButton!!.setOnClickListener { game!!.circle!!.position.y += 10f }
-
-        leftButton = findViewById<View>(R.id.left_button) as Button
-        leftButton!!.setOnClickListener { game!!.circle!!.position.x -= 10f }
-
-        rightButton = findViewById<View>(R.id.right_button) as Button
-        rightButton!!.setOnClickListener { game!!.circle!!.position.x += 10f }
     }
 
     inner class Game : GameObject() {
         var circle: Circle? = null
-
+        var bin: Bin? = null
         override fun onStart(surface: GameSurface?) {
             super.onStart(surface)
 
+            //val bin = Bin(100f, 100f, 20f, 20f)
+            //surface!!.addGameObject(bin)
             circle = Circle(
                 (surface!!.width / 2).toFloat(),
                 (surface.height / 2).toFloat(),
-                100f,
+                30f,
                 Color.RED
             )
+
             surface.addGameObject(circle!!)
 
-            surface.addGameObject(
-                Rectangle(
-                    Vector((surface.width / 3).toFloat(), (surface.height / 3).toFloat()),
-                    200f, 100f, Color.GREEN
-                )
-            )
+             //Initialize the bin
+            val binX = (surface.width / 5).toFloat() // Centered horizontally
+            val binY = (surface.height / 4).toFloat()           // Positioned at the bottom
+            bin = Bin(binX, binY, 300f, 200f)
 
-            surface.addGameObject(
-                DroppingRectangle(
-                    Vector((surface.width / 3).toFloat(), (surface.height / 3).toFloat()),
-                    100f, 100f, 10f, Color.rgb(128, 14, 80)
-                )
-            )
         }
+
 
         override fun onFixedUpdate() {
             super.onFixedUpdate()
 
-            if (!circle!!.isFloored && !circle!!.hitRightWall() && !circle!!.isDestroyed) {
-                circle!!.setPosition(circle!!.position.x + 1, circle!!.position.y + 1)
-            } else {
-                circle!!.destroy()
-            }
+            val deltaTime = 7.5f / 30f
+//            circle!!.rigidbody.applyForce(PointF(0f, 9.8f))
+//            circle!!.updatePhysics(deltaTime)
+//
+//
+//            circle!!.position.x += circle!!.rigidbody.velocity.x * deltaTime
+//            circle!!.position.y += circle!!.rigidbody.velocity.y * deltaTime
+//
+//            if (circle!!.hitLeftWall() || circle!!.hitRightWall()) {
+//                circle!!.rigidbody.velocity.x = -circle!!.rigidbody.velocity.x
+//            }
+//            if (circle!!.hitCeiling() || circle!!.isFloored) {
+//                circle!!.rigidbody.velocity.y = -circle!!.rigidbody.velocity.y
+//            }
+//
+
         }
     }
 }

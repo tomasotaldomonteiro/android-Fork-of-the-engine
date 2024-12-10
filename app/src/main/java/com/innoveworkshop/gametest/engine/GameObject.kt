@@ -6,7 +6,7 @@ abstract class GameObject {
     var position: Vector
 
     protected var gameSurface: GameSurface? = null
-    var isDestroyed: Boolean = false
+    var bounce: Boolean = false
         protected set
 
     constructor(position: Vector) {
@@ -23,9 +23,9 @@ abstract class GameObject {
         position.y = y
     }
 
-    fun destroy() {
-        gameSurface!!.removeGameObject(this)
-        isDestroyed = true
+    fun bounce() {
+        //gameSurface!!.removeGameObject(this)
+        bounce = true
     }
 
     open fun onStart(surface: GameSurface?) {
@@ -33,8 +33,8 @@ abstract class GameObject {
     }
 
     open fun onFixedUpdate() {
-        if (isDestroyed) {
-            setPosition(-100f, -100f)
+        if (bounce) {
+            setPosition(100f, 100f)
         }
     }
 

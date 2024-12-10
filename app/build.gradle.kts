@@ -8,7 +8,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "pt.iade.games.TomasProject"  
+        applicationId = "pt.iade.games.TomasProject"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

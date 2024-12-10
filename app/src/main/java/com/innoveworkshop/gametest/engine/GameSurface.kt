@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.innoveworkshop.gametest.MainActivity
 import java.util.Timer
 import java.util.TimerTask
 
@@ -69,11 +70,15 @@ class GameSurface @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+
         root!!.onDraw(canvas)
         for (gameObject in gameObjects) {
             gameObject.onDraw(canvas)
         }
+
+        val game = root as? MainActivity.Game
     }
+
 
     internal inner class FixedUpdateTimer : TimerTask() {
         override fun run() {
